@@ -41,9 +41,32 @@ O compilador usa dois jobs por padrão. Os chips aceitos no projeto são ESP32,
 ESP32-S3, ESP32-C3 e ESP32-C6. O hardware comprovado nesta etapa é **ESP32-S3 via
 CH343**; as outras combinações não foram validadas fisicamente.
 
+## Instalar pelo GitHub
+
+Repositório: [duOCELOT/hunnin-android](https://github.com/duOCELOT/hunnin-android).
+O nome do repositório é `hunnin-android`; o comando instalado continua `huninn`.
+
+No Termux, para uma instalação nova:
+
+```bash
+pkg update
+pkg install git
+git clone https://github.com/duOCELOT/hunnin-android.git ~/huninn-android
+cd ~/huninn-android
+bash install.sh --check
+bash install.sh
+huninn doctor
+```
+
+Se você já tem o SDK `huninn-idf`, substitua as duas linhas `bash install.sh`
+pelas opções `--reuse-huninn-idf` descritas abaixo. Se o repositório estiver
+privado, use o ZIP pelo navegador autenticado; não digite sua senha do GitHub
+no Termux.
+
 ## Instalar pelo ZIP, sem senha do GitHub no Termux
 
-Baixe o pacote `huninn-android-0.1.0.zip`. Ele contém apenas código e documentação;
+Baixe o [ZIP da branch main](https://github.com/duOCELOT/hunnin-android/archive/refs/heads/main.zip)
+pelo navegador. O arquivo se chama `hunnin-android-main.zip` e contém código e documentação;
 o SDK e os compiladores oficiais são baixados na instalação.
 
 No Termux, para uma instalação nova:
@@ -52,14 +75,14 @@ No Termux, para uma instalação nova:
 pkg update
 pkg install unzip
 termux-setup-storage
-unzip ~/storage/downloads/huninn-android-0.1.0.zip -d ~
-cd ~/huninn-android
+unzip ~/storage/downloads/hunnin-android-main.zip -d ~
+cd ~/hunnin-android-main
 bash install.sh --check
 bash install.sh
 huninn doctor
 ```
 
-Se `~/huninn-android` já existir, preserve a cópia e seus projetos antes de
+Se a pasta de destino já existir, preserve a cópia e seus projetos antes de
 extrair outra versão por cima. O pacote deve permanecer no local instalado;
 se mover a pasta, execute o instalador novamente para atualizar o comando.
 
