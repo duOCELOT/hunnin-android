@@ -1,0 +1,9 @@
+Seu celular também pode ser seu laboratório. 📱⚡
+
+Estamos desenvolvendo o HUNINN Android: um fluxo com Termux, Debian e ESP-IDF para criar projetos ESP32 pelo celular, sem root. Compilação e gravação já testadas em ESP32-S3 com interface CH343.
+
+Projeto experimental; a compatibilidade USB depende da placa e do Android. Terminais do vídeo são ilustrativos.
+
+Qual hardware você criaria?
+
+#ESP32 #ESP-IDF #Termux #Android #Maker #IoT #HUNINN

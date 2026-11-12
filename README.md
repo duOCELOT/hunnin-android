@@ -1,75 +1,79 @@
+<div align="center">
+
+![HUNINN Android: seu celular, seu laboratório](docs/images/hero.svg)
+
 # HUNINN Android
 
-**Crie, edite e compile projetos ESP32 no celular, sem Windows e sem root.**
+**Crie, edite, compile e experimente hardware ESP32 pelo celular.**
 
-Edição independente do firmware HUNINN. Versão **0.1.0 experimental**, com
-interface de terminal em português. Não é APK nem uma distribuição oficial da
-Espressif. Usa Termux ARM64, Debian Bookworm via PRoot e ESP-IDF **5.5.6** fixado.
+`v0.1.0 experimental` · `ESP-IDF 5.5.6` · `Android ARM64` · `MIT`
 
-```text
-huninn new meu-projeto --chip esp32s3
-huninn edit meu-projeto
-huninn config meu-projeto
-huninn build meu-projeto
-```
+[Começar](#comece-aqui) · [Tutorial USB](#grave-na-placa) · [Comandos](#comandos) · [Baixar o reel](#vídeo-e-material-para-compartilhar)
 
-## O que já existe
+</div>
 
-- Instalador com verificação de arquitetura, espaço e proteção de ambientes existentes.
-- SDK dentro de um container separado chamado `huninn-android`.
-- Opção para reutilizar o antigo `huninn-idf` instalado pelo projeto HUNINN.
-- Projetos próprios em `~/huninn-projects`, fora do pacote e do SDK.
-- Editor Nano, menuconfig, compilação, relatório de tamanho e exportação de binários.
-- Retentativas de download e espelho oficial da Espressif para as ferramentas.
-- Recuperação conservadora de submódulos cujo checkout foi interrompido e está vazio.
-- Diagnóstico USB e ponte **CH343 `1a86:55d3`** com velocidade fixa de 115200.
-- Comandos para identificar a flash e gravar os segmentos gerados pelo build.
+Um ambiente de desenvolvimento no Termux, com Debian via PRoot e ferramentas
+oficiais do ESP-IDF. O projeto tem interface de terminal em português: **não é
+um APK nem uma distribuição oficial da Espressif**.
 
-## Requisitos
+> **Estado atual:** o fluxo original de compilação e gravação foi testado em
+> Android com ESP32-S3 + CH343. O instalador independente ainda precisa de
+> validação completa em um Android físico. Veja [validação e limites](#validação-e-limites).
 
-- Android com Termux **ARM64** (`uname -m` e `dpkg --print-architecture`: `aarch64`).
-- Termux de fonte oficial, por exemplo [F-Droid](https://f-droid.org/packages/com.termux/).
-- Para USB: aplicativo [Termux:API](https://f-droid.org/packages/com.termux.api/)
-  **da mesma fonte do Termux**, cabo de dados/OTG e uma interface USB compatível.
-- Internet para a primeira instalação e dependências de projetos.
-- Pelo menos 10 GiB livres; reserve 12–15 GiB para SDK e builds. Ao reutilizar o
-  SDK anterior, o instalador exige pelo menos 2 GiB livres adicionais.
-- Manter o pacote e os projetos no armazenamento privado do Termux, não em Downloads.
+## O que você pode fazer
 
-O Android pode limitar memória, processos em segundo plano ou alimentação USB.
-O compilador usa dois jobs por padrão. Os chips aceitos no projeto são ESP32,
-ESP32-S3, ESP32-C3 e ESP32-C6. O hardware comprovado nesta etapa é **ESP32-S3 via
-CH343**; as outras combinações não foram validadas fisicamente.
+| No celular | Com HUNINN |
+| :--- | :--- |
+| Criar um projeto | Template ESP-IDF, sem acionar pinos desconhecidos |
+| Escrever código | Nano e arquivos C no armazenamento privado do Termux |
+| Configurar a placa | menuconfig para flash, PSRAM e opções do firmware |
+| Compilar e exportar | Firmware local, relatório de tamanho e binário combinado |
+| Gravar via USB | Ponte experimental CH343, com identificação e confirmação |
+| Reaproveitar o SDK | Opção para quem já tem o ambiente `huninn-idf` |
 
-## Instalar pelo GitHub
+![Fluxo de editar, compilar e gravar](docs/images/workflow.svg)
 
-Repositório: [duOCELOT/hunnin-android](https://github.com/duOCELOT/hunnin-android).
-O nome do repositório é `hunnin-android`; o comando instalado continua `huninn`.
+## Comece aqui
 
-No Termux, para uma instalação nova:
+### 1. Prepare o Android
+
+- Instale [Termux](https://f-droid.org/packages/com.termux/) e, para USB,
+  [Termux:API](https://f-droid.org/packages/com.termux.api/) **da mesma fonte**.
+  O aplicativo Termux:API é necessário além do pacote instalado no terminal.
+- Use Android **ARM64**. `uname -m` e `dpkg --print-architecture` devem indicar `aarch64`.
+- Separe pelo menos **10 GiB livres**; recomendamos 12–15 GiB para SDK e builds.
+  Reutilizar o SDK antigo exige pelo menos 2 GiB adicionais.
+- Tenha internet durante a instalação. O Wi-Fi local da station pode não ter internet.
+- Para gravar, use cabo **de dados/OTG** e uma interface USB compatível.
+
+**Compatibilidade da versão atual**
+
+| Recurso | Suporte |
+| :--- | :--- |
+| Projetos ESP32 / S3 / C3 / C6 | Aceitos pelo CLI; demais combinações ainda sem teste físico |
+| Gravação ESP32-S3 + CH343 `1a86:55d3` | Fluxo original testado |
+| CP210x, CH340, FTDI e USB nativa Espressif | Não implementados nesta ponte |
+| Root ou computador Windows | Não necessários para o fluxo compatível |
+
+### 2. Baixe o projeto
+
+No **Termux**, execute:
 
 ```bash
 pkg update
 pkg install git
 git clone https://github.com/duOCELOT/hunnin-android.git ~/huninn-android
 cd ~/huninn-android
-bash install.sh --check
-bash install.sh
-huninn doctor
 ```
 
-Se você já tem o SDK `huninn-idf`, substitua as duas linhas `bash install.sh`
-pelas opções `--reuse-huninn-idf` descritas abaixo. Se o repositório estiver
-privado, use o ZIP pelo navegador autenticado; não digite sua senha do GitHub
-no Termux.
+O repositório se chama **hunnin-android**. A pasta sugerida e o comando usam
+**huninn**. Se a pasta já existir, não clone por cima dos seus arquivos.
 
-## Instalar pelo ZIP, sem senha do GitHub no Termux
+<details>
+<summary><strong>Alternativa: baixar ZIP pelo navegador, sem login no terminal</strong></summary>
 
-Baixe o [ZIP da branch main](https://github.com/duOCELOT/hunnin-android/archive/refs/heads/main.zip)
-pelo navegador. O arquivo se chama `hunnin-android-main.zip` e contém código e documentação;
-o SDK e os compiladores oficiais são baixados na instalação.
-
-No Termux, para uma instalação nova:
+Abra o [ZIP do projeto](https://github.com/duOCELOT/hunnin-android/archive/refs/heads/main.zip).
+Se o repositório estiver privado, entre no GitHub pelo navegador primeiro.
 
 ```bash
 pkg update
@@ -77,76 +81,159 @@ pkg install unzip
 termux-setup-storage
 unzip ~/storage/downloads/hunnin-android-main.zip -d ~
 cd ~/hunnin-android-main
+```
+
+Aceite a permissão de armazenamento do Android. Preserve a pasta existente antes
+de extrair outra cópia. A instalação deve ficar na pasta privada do Termux,
+**não dentro de Downloads**.
+
+</details>
+
+### 3. Instale — escolha um caminho
+
+**Primeira instalação:**
+
+```bash
 bash install.sh --check
 bash install.sh
 huninn doctor
 ```
 
-Se a pasta de destino já existir, preserve a cópia e seus projetos antes de
-extrair outra versão por cima. O pacote deve permanecer no local instalado;
-se mover a pasta, execute o instalador novamente para atualizar o comando.
-
-**Para quem já instalou o SDK pelo projeto HUNINN**, use estas opções em vez da
-instalação padrão:
+**Já tem o SDK do projeto HUNINN (`huninn-idf`)?** Use este bloco no lugar do anterior:
 
 ```bash
 bash install.sh --reuse-huninn-idf --check
 bash install.sh --reuse-huninn-idf
+huninn doctor
 ```
 
-Essa opção reutiliza o container marcado como gerenciado e os compiladores.
-O comando antigo `huninn-idf`, seus arquivos de firmware e seus `sdkconfig`
-continuam separados. O novo comando chama-se **`huninn`**. Nas próximas
-reexecuções do instalador, mantenha a mesma opção de reutilização.
+A reutilização preserva o comando antigo `huninn-idf` e seus projetos. O novo
+comando é **`huninn`**. Nas próximas execuções do instalador, mantenha a mesma
+opção de reutilização.
 
-O comando só é publicado após a instalação concluir. Se ela parar antes disso,
-`huninn: command not found` é esperado: resolva o erro e execute o instalador de
-novo. Não apague todo o SDK para tentar corrigir um download.
+A instalação baixa compiladores e dependências; o tempo depende do aparelho e
+da rede. Mantenha o Termux em primeiro plano. `huninn` só fica disponível quando
+a instalação termina. Em caso de interrupção, corrija o erro e execute o mesmo
+instalador novamente: não precisa apagar todo o SDK.
 
-## Primeiro projeto
+**Mantenha a pasta do instalador no lugar.** Se movê-la, execute a instalação
+novamente para atualizar os caminhos do comando.
+
+## Seu primeiro firmware
+
+### 4. Crie e edite
 
 ```bash
-huninn new meu-projeto --chip esp32s3
-huninn edit meu-projeto
-huninn config meu-projeto
-huninn build meu-projeto
-huninn size meu-projeto
+huninn new demo --chip esp32s3
+huninn edit demo
 ```
 
-O exemplo imprime uma mensagem na UART a cada dois segundos. **Não aciona GPIOs**,
-pois LEDs, motores e sensores têm pinagens diferentes em cada placa. Em Nano,
-salve com Ctrl+O, Enter, e saia com Ctrl+X. No Termux, a tecla Ctrl da barra extra
-ou Volume para baixo pode ser usada como modificador.
+O arquivo fica em `~/huninn-projects/demo/main/main.c`. O exemplo envia uma
+mensagem pela UART a cada dois segundos e não aciona GPIOs.
 
-Em `huninn config`, confira tamanho e modo da flash, PSRAM e qualquer configuração
-específica da placa. O exemplo usa os padrões do ESP-IDF, incluindo flash de 2 MB;
-não supõe que todas as placas sejam a N16R8 do projeto original.
+No Nano: **Ctrl+O → Enter** salva; **Ctrl+X** sai. Use a tecla Ctrl da barra extra
+do Termux ou Volume para baixo como modificador.
 
-Não rode `set-target` para simplesmente trocar de computador: pode recriar a
-configuração. Cada projeto guarda seu chip em `huninn.json`, e os builds Android
-usam `build-android/`.
+### 5. Configure e compile
 
-## Gravar pelo Android
-
-Leia [o fluxo USB completo](docs/usb.md). Nesta versão, são duas sessões Termux:
-
-```text
-Sessão 1: huninn usb-list
-          huninn usb-info /dev/bus/usb/001/002
-          huninn usb /dev/bus/usb/001/002
-Sessão 2: huninn probe meu-projeto
-          [reiniciar a ponte na sessão 1]
-          huninn flash meu-projeto
+```bash
+huninn config demo
+huninn build demo
+huninn size demo
 ```
 
-O endereço é só exemplo: use a listagem atual. BOOT/RESET é manual. A ponte
-aceita um comando por execução e aguarda até 180 segundos por conexão. A
-confirmação de gravação exige digitar o nome do projeto; `--yes` é oferecido para
-automação consciente. O comando `probe` não grava firmware.
+Confira o **tamanho real da flash**, modo e PSRAM da sua placa. O template usa
+padrões do ESP-IDF, incluindo flash de 2 MB; não presume que toda placa tem 16 MB.
+Ao concluir, procure **`Project build complete`**. Os arquivos ficam em
+`~/huninn-projects/demo/build-android/`.
 
-O driver é específico para CH343 `1a86:55d3` com descritores CDC-ACM compatíveis.
-CP210x, CH340, FTDI e USB nativa Espressif **não estão implementados** nesta ponte.
-Outras placas podem ser compiladas/exportadas, mas exigem um gravador compatível.
+Os comandos acima rodam no Termux. Para comandos `idf.py` manuais, entre primeiro
+com `huninn shell demo` e use `idf.py -B build-android ...`. Saia com `exit`.
+Não reutilize builds do Windows nem execute `set-target` apenas para mudar de computador.
+
+## Grave na placa
+
+![Diagrama das duas sessões Termux e da placa](docs/images/usb.svg)
+
+### 6. Identifique o USB
+
+Conecte a placa pela porta **USB-UART** e execute no Termux:
+
+```bash
+huninn usb-list
+huninn usb-info /dev/bus/usb/001/002
+```
+
+**Substitua o endereço de exemplo pelo que apareceu na sua lista.** Aceite a
+permissão USB do Android. Esta ponte requer VID/PID **`1a86:55d3`**.
+
+### 7. Abra a ponte e confira a flash
+
+Segure **BOOT**, pressione e solte **RESET**, depois solte **BOOT**. Confira
+`huninn usb-list` novamente: o endereço pode mudar.
+
+Na **sessão 1** do Termux:
+
+```bash
+huninn usb /dev/bus/usb/001/002
+```
+
+Espere **`CH343 ready`** e mantenha essa sessão aberta. Crie uma segunda sessão
+pelo menu lateral do Termux e, na **sessão 2**, execute:
+
+```bash
+huninn probe demo
+```
+
+Esse comando identifica chip e flash sem gravar. Compare o resultado com a
+configuração do projeto; se ajustar `huninn config demo`, compile novamente.
+
+### 8. Grave e execute
+
+A ponte atende **uma conexão por execução**. Depois do `probe`, execute novamente
+`huninn usb ENDEREÇO` na sessão 1. Na sessão 2:
+
+```bash
+huninn flash demo
+```
+
+Confira o resumo e digite **`demo`** quando solicitado. Espere a verificação dos
+hashes de todos os segmentos. Depois pressione **RESET sem BOOT** para iniciar
+o firmware. A compilação, sozinha, não altera o programa na placa.
+
+A ponte aguarda até 180 segundos por conexão e mantém 115200 baud. Consulte o
+[tutorial USB completo](docs/usb.md) para detalhes e diagnóstico.
+
+## Se algo não funcionar
+
+| Mensagem ou situação | O que fazer |
+| :--- | :--- |
+| `huninn: command not found` | A instalação não terminou; examine o erro anterior e retome o instalador. |
+| `Could not resolve host` | Confira a internet; saia do Wi-Fi da station se ele não oferece internet. |
+| `Connection refused` | Reinicie a ponte na sessão 1 antes do próximo comando. |
+| `No such device` | Rode `huninn usb-list` e use o endereço atual. |
+| `No serial data received` | Confira BOOT/RESET, USB-UART e a mensagem da ponte. |
+| `Device or resource busy` | Feche outro app ou ponte que esteja usando a interface; veja o diagnóstico USB. |
+| Android encerra a compilação | Confira espaço, memória e restrições de bateria; veja como reduzir jobs. |
+
+[Guia de recuperação](docs/troubleshooting.md) · [Diagnóstico USB](docs/usb.md#interpretar-erros)
+
+## Vídeo e material para compartilhar
+
+Reel vertical de **25 segundos, 1080 × 1920**, com textos em português e trilha
+sintetizada original. Os terminais são ilustrações do fluxo, não uma captura de tela.
+
+[![Prévia do reel HUNINN Android](media/preview.jpg)](media/huninn-android-reel.mp4)
+
+**[Baixar vídeo MP4](https://github.com/duOCELOT/hunnin-android/raw/refs/heads/main/media/huninn-android-reel.mp4)**
+· [Capa JPG](https://github.com/duOCELOT/hunnin-android/raw/refs/heads/main/media/capa.jpg)
+· [Legenda para copiar](media/legenda.txt)
+
+No celular, se o vídeo abrir no navegador, use **Baixar** no player ou o menu
+**⋮ → Download**. Também é possível abrir [o arquivo no GitHub](media/huninn-android-reel.mp4)
+e selecionar **Download raw file**. Se o repositório estiver privado, faça login
+no navegador. O [ZIP do repositório](https://github.com/duOCELOT/hunnin-android/archive/refs/heads/main.zip)
+também inclui os três arquivos na pasta `media/`.
 
 ## Comandos
 

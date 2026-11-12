@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img">
+<title>Da ideia ao firmware.</title>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#07111f"/><stop offset="1" stop-color="#103335"/></linearGradient></defs><rect width="1200" height="520" rx="24" fill="url(#bg)"/>
+<path d="M0 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M40 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M80 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M120 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M160 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M200 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M240 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M280 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M320 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M360 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M400 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M440 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M480 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M520 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M560 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M600 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M640 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M680 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M720 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M760 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M800 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M840 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M880 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M920 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M960 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M1000 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M1040 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M1080 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M1120 0V520" stroke="#16323b" opacity=".5"/>
+<path d="M1160 0V520" stroke="#16323b" opacity=".5"/>
+<text x="60" y="72" fill="#61ffbc" font-family="sans-serif" font-size="19" letter-spacing="4">HUNINN / ANDROID</text>
+<text x="60" y="145" fill="#effbff" font-family="sans-serif" font-size="48" font-weight="bold">Da ideia ao firmware.</text>
+<text x="60" y="191" fill="#a8c0ce" font-family="sans-serif" font-size="23">Os comandos huninn são executados no Termux.</text>
+<rect x="60" y="254" width="340" height="190" rx="16" fill="#0b1928" stroke="#2a5961"/>
+<text x="84" y="297" fill="#61ffbc" font-family="monospace" font-size="18">01 / EDITE</text>
+<text x="84" y="352" fill="#effbff" font-family="sans-serif" font-size="27" font-weight="bold">huninn edit demo</text>
+<text x="84" y="398" fill="#a8c0ce" font-family="sans-serif" font-size="18">Fontes em ~/huninn-projects</text>
+<rect x="430" y="254" width="340" height="190" rx="16" fill="#0b1928" stroke="#2a5961"/>
+<text x="454" y="297" fill="#61ffbc" font-family="monospace" font-size="18">02 / COMPILE</text>
+<text x="454" y="352" fill="#effbff" font-family="sans-serif" font-size="27" font-weight="bold">huninn build demo</text>
+<text x="454" y="398" fill="#a8c0ce" font-family="sans-serif" font-size="18">Saída em build-android/</text>
+<rect x="800" y="254" width="340" height="190" rx="16" fill="#0b1928" stroke="#2a5961"/>
+<text x="824" y="297" fill="#61ffbc" font-family="monospace" font-size="18">03 / GRAVE</text>
+<text x="824" y="352" fill="#effbff" font-family="sans-serif" font-size="27" font-weight="bold">huninn flash demo</text>
+<text x="824" y="398" fill="#a8c0ce" font-family="sans-serif" font-size="18">BOOT/RESET manual</text>
+</svg>
