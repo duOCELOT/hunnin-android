@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.sdk-download*/
+build*/
+sdkconfig*
+!sdkconfig.defaults
+managed_components/
+dist/
